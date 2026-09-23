@@ -1,0 +1,274 @@
+SQL*Plus: Release 10.2.0.3.0 - Production on Mon Jul 27 10:06:12 2026
+
+Copyright (c) 1982, 2006, Oracle.  All Rights Reserved.
+
+
+Connected to:
+Oracle Database 10g Enterprise Edition Release 10.2.0.3.0 - Production
+With the Partitioning, OLAP and Data Mining options
+
+SQL> selcet *from tab;
+SP2-0734: unknown command beginning "selcet *fr..." - rest of line ignored.
+SQL> select *from tab;
+
+TNAME                          TABTYPE  CLUSTERID
+------------------------------ ------- ----------
+EMPLOYEE1                      TABLE
+ADI                            TABLE
+BIN$zlfBLPgmSv62ZmGjVQJByQ==$0 TABLE
+STUD1                          TABLE
+EMP                            TABLE
+DEPT                           TABLE
+BONUS                          TABLE
+SALGRADE                       TABLE
+DEPARTMENT787                  TABLE
+BIN$HsNS2WH5QAmokdp+e43Zrw==$0 TABLE
+TPP                            TABLE
+
+TNAME                          TABTYPE  CLUSTERID
+------------------------------ ------- ----------
+EMPON                          TABLE
+EMP22                          TABLE
+EMP11                          TABLE
+SELFJOIN                       TABLE
+BIN$05vGeuwATI2IvALktuRung==$0 TABLE
+EMPLOYEE                       TABLE
+STUD                           TABLE
+USER_BCA_11A                   TABLE
+PRODUCTS                       TABLE
+CUSTOMER                       TABLE
+BIN$VKzjGi6DSgealMTK45C9iw==$0 TABLE
+
+TNAME                          TABTYPE  CLUSTERID
+------------------------------ ------- ----------
+VV                             TABLE
+V2                             TABLE
+PERSONS                        TABLE
+STUDENTS                       TABLE
+BIN$OZBSqR/vSBCLr0js/2uObg==$0 TABLE
+ROLLUPTEST                     TABLE
+UTTAM                          TABLE
+EMPON1                         TABLE
+EMPON2                         TABLE
+BIN$dTmXnNx5TY2ce/b9jbyc+Q==$0 TABLE
+EMPLOYE                        TABLE
+
+TNAME                          TABTYPE  CLUSTERID
+------------------------------ ------- ----------
+ADI1                           TABLE
+STUD_ONE                       TABLE
+BIN$7dY112H6RzC3KSt0I0m12w==$0 TABLE
+EMP1                           TABLE
+EMP787                         TABLE
+EMP786                         TABLE
+
+39 rows selected.
+
+SQL> desc emp;'
+SP2-0565: Illegal identifier.
+SQL> dece emp;
+SP2-0042: unknown command "dece emp" - rest of line ignored.
+SQL> desc emp;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPNO                                              NUMBER(4)
+ ENAME                                              VARCHAR2(10)
+ JOB                                                VARCHAR2(9)
+ MGR                                                NUMBER(4)
+ HIREDATE                                           DATE
+ SAL                                                NUMBER(7,2)
+ COMM                                               NUMBER(7,2)
+ DEPTNO                                             NUMBER(2)
+
+SQL> desc stud1;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SID                                                NUMBER(5)
+ SNAME                                              VARCHAR2(30)
+ COURCE                                             VARCHAR2(20)
+ MARK                                               NUMBER(3)
+ EMAIL                                              VARCHAR2(20)
+
+SQL> desc students;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SID                                                NUMBER(38)
+ SNAME                                              VARCHAR2(15)
+ PREC                                               NUMBER(17)
+ GENDER                                             VARCHAR2(19)
+ BRANCH                                             VARCHAR2(25)
+
+SQL> alter tble students add constrain chk_student_age check(age>=18);
+alter tble students add constrain chk_student_age check(age>=18)
+      *
+ERROR at line 1:
+ORA-00940: invalid ALTER command
+
+
+SQL>  alter table students add constrain chk_student_age check(age>=18);
+ alter table students add constrain chk_student_age check(age>=18)
+                                                                 *
+ERROR at line 1:
+ORA-02438: Column check constraint cannot reference other columns
+
+
+SQL> ALTER TABLE students ADD age NUMBER(3);
+
+Table altered.
+
+SQL>  alter table students add constrain chk_student_age check(age>=18);
+ alter table students add constrain chk_student_age check(age>=18)
+                                                                 *
+ERROR at line 1:
+ORA-02438: Column check constraint cannot reference other columns
+
+
+SQL> ALTER TABLE students ADD CONSTRAINT chk_student_age CHECK (age >= 18);
+
+Table altered.
+
+SQL> desc students;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SID                                                NUMBER(38)
+ SNAME                                              VARCHAR2(15)
+ PREC                                               NUMBER(17)
+ GENDER                                             VARCHAR2(19)
+ BRANCH                                             VARCHAR2(25)
+ AGE                                                NUMBER(3)
+
+SQL> select *from students;
+
+no rows selected
+
+SQL> ALTER TABLE students ADD CONSTRAINT chk_student_prec CHECK (prec >= 18);
+
+Table altered.
+
+SQL>  desc students;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SID                                                NUMBER(38)
+ SNAME                                              VARCHAR2(15)
+ PREC                                               NUMBER(17)
+ GENDER                                             VARCHAR2(19)
+ BRANCH                                             VARCHAR2(25)
+ AGE                                                NUMBER(3)
+
+SQL> select *from students;
+
+no rows selected
+
+SQL> CREATE TABLE Students (StudentID INT,Name VARCHAR(100),City VARCHAR(50) DEFAULT 'Rajkot'
+  2  );
+CREATE TABLE Students (StudentID INT,Name VARCHAR(100),City VARCHAR(50) DEFAULT 'Rajkot'
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+SQL> SQL> CREATE TABLE Students (StudentID INT,Name VARCHAR(100),City VARCHAR(50) DEFAULT 'Rajkot'
+SP2-0734: unknown command beginning "SQL> CREAT..." - rest of line ignored.
+SQL>   2  );
+SQL> CREATE TABLE Students (StudentID INT,Name VARCHAR(100),City VARCHAR(50) DEFAULT 'Rajkot'
+  2               *
+  3  ERROR at line 1:
+  4  
+SQL> CREATE TABLE Students_New (
+  2      StudentID INT,
+  3      Name VARCHAR(100),
+  4      City VARCHAR(50) DEFAULT 'Rajkot'
+  5  );
+
+Table created.
+
+SQL> desc students;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SID                                                NUMBER(38)
+ SNAME                                              VARCHAR2(15)
+ PREC                                               NUMBER(17)
+ GENDER                                             VARCHAR2(19)
+ BRANCH                                             VARCHAR2(25)
+ AGE                                                NUMBER(3)
+
+SQL> select *from students;
+
+no rows selected
+
+SQL> INSERT INTO Students (StudentID, Name, Age, City)
+  2  VALUES (1, 'Rahul', 20, 'Rajkot');
+INSERT INTO Students (StudentID, Name, Age, City)
+                                            *
+ERROR at line 1:
+ORA-00904: "CITY": invalid identifier
+
+
+SQL> ALTER TABLE Students
+  2  ADD City VARCHAR(50) DEFAULT 'Rajkot';
+
+Table altered.
+
+SQL> CREATE TABLE Students (
+  2      StudentID INT,
+  3      Name VARCHAR(100),
+  4      City VARCHAR(50) DEFAULT 'Rajkot'
+  5  );
+CREATE TABLE Students (
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+SQL> select *from students;
+
+no rows selected
+
+SQL> CREATE TABLE Students (
+  2      StudentID INT,
+  3      Name VARCHAR(100),
+  4      City VARCHAR(50) DEFAULT 'Rajkot'
+  5  
+SQL>  INSERT INTO Students (StudentID, Name, Age, City)
+  2   VALUES (1, 'Rahul', 20, 'Rajkot');
+ INSERT INTO Students (StudentID, Name, Age, City)
+                                  *
+ERROR at line 1:
+ORA-00904: "NAME": invalid identifier
+
+
+SQL>  INSERT INTO Students (StudentID, sName, Age, City)
+  2   VALUES (1, 'Rahul', 20, 'Rajkot');
+ INSERT INTO Students (StudentID, sName, Age, City)
+                       *
+ERROR at line 1:
+ORA-00904: "STUDENTID": invalid identifier
+
+
+SQL>  INSERT INTO Students (SID, sName, Age, City)
+  2   VALUES (1, 'Rahul', 20, 'Rajkot');
+
+1 row created.
+
+SQL> select *from students;
+
+       SID SNAME                 PREC GENDER
+---------- --------------- ---------- -------------------
+BRANCH                           AGE
+------------------------- ----------
+CITY
+--------------------------------------------------
+         1 Rahul
+                                  20
+Rajkot
+
+
+SQL> ALTER TABLE Students
+  2  ADD City VARCHAR(50) DEFAULT 'Rajkot';
+ADD City VARCHAR(50) DEFAULT 'Rajkot'
+    *
+ERROR at line 2:
+ORA-01430: column being added already exists in table
+
+
+SQL> 
