@@ -1,0 +1,21 @@
+#include<iostream.h>
+#include<conio.h>
+class A
+{
+	int a;
+	public:
+	void get()
+	{
+		cout<<"enter a:";
+		cin>>a;
+	}
+	void put()
+	{
+		cout<<"\n a="<<a;
+	}
+	void change()
+	{
+
+	}
+
+}

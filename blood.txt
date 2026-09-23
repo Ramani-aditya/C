@@ -1,0 +1,25 @@
+blood-bank/
+│
+├── config.php
+├── setup.php
+├── index.php
+├── login.php
+├── register.php
+├── logout.php
+│
+├── admin/
+│   ├── dashboard.php
+│   ├── users.php
+│   ├── donors.php
+│   ├── stock.php
+│   └── requests.php
+│
+├── user/
+│   ├── dashboard.php
+│   ├── profile.php
+│   ├── search.php
+│   ├── request.php
+│   └── history.php
+│
+└── assets/
+    └── style.css

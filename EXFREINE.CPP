@@ -1,0 +1,39 @@
+#include<iostream.h>
+#include<conio.h>
+class A
+{
+	int a;
+	public:
+		void get()
+		{
+			cout<<"\n enter a:";
+			cin>>a;
+		}
+		void put()
+		{
+			cout<<"\n a="<<a;
+		}
+		friend A sum(A x,A y);
+};
+A sum(A x,A y)
+{
+	A Z;
+	Z.a=x.a+y.a;
+	return(z);
+}
+void main()
+{
+	A a1,a2,a3;
+	clrscr();
+	a1.get();
+	a2.get();
+
+	a3=a1.sum(a1,a2);
+	a1.put();
+	a2.put();
+	a3.put();
+
+
+	getch();
+
+}
